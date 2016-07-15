@@ -1,27 +1,36 @@
 <?php
 namespace PMVC\PlugIn\dev;
 
-// \PMVC\l(__DIR__.'/xxx.php');
-
 ${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\dev';
 
 class dev extends \PMVC\PlugIn
 {
+    private $_d;
+    public function init()
+    {
+       $this->_d = \PMVC\plug('debug'); 
+    }
+
     public function getAllApps()
     {
         $parent = \PMVC\getOption(); 
     }
 
-    public function dump($k, $v, $level='')
+    public function dump($s, $type)
     {
-        $d = \PMVC\plug('debug');
+        if (!$this->isDev($type)) {
+            return;
+        }
+        $d = $this->_d;
         $o = $d->getOutput();
-        $o->dump([$k,$v],$level);
+        $o->dump($s,$type);
     }
 
     public function isDev($type)
     {
-        $d = \PMVC\plug('debug');
-        return $d->isShow($type, $d['level']);
+        $d = $this->_d;
+        $level = \PMVC\value($d,['level']);
+        $level = explode(',',$level);
+        return in_array($type, $level);
     }
 }
