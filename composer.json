@@ -1,0 +1,17 @@
+{
+    "name": "pmvc-plugin/dev",
+    "description": "PMVC Develop Util for get all app, plugs etc",
+    "type": "library",
+    "keywords": ["dev", "pmvc", "plug-in"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Hill",
+            "email": "hill@kimo.com"
+        }
+    ],
+    "require": {
+        "pmvc/pmvc": "*"
+    },
+    "minimum-stability": "dev"
+}
