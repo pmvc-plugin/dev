@@ -5,12 +5,6 @@ ${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\dev';
 
 class dev extends \PMVC\PlugIn
 {
-    private $_d;
-    public function init()
-    {
-       $this->_d = \PMVC\plug('debug'); 
-    }
-
     public function getAllApps()
     {
         $parent = \PMVC\getOption(); 
@@ -21,14 +15,14 @@ class dev extends \PMVC\PlugIn
         if (!$this->isDev($type)) {
             return;
         }
-        $d = $this->_d;
+        $d = \PMVC\plug('debug');
         $o = $d->getOutput();
         $o->dump($s,$type);
     }
 
     public function isDev($type)
     {
-        $d = $this->_d;
+        $d = \PMVC\plug('debug');
         $level = \PMVC\value($d,['level']);
         $level = explode(',',$level);
         return in_array($type, $level);
