@@ -22,6 +22,9 @@ class dev extends \PMVC\PlugIn
 
     public function isDev($type)
     {
+        if (empty($type)) {
+            return false;
+        }
         $d = \PMVC\plug('debug');
         $level = \PMVC\value($d,['level']);
         $level = explode(',',$level);
