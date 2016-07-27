@@ -10,14 +10,17 @@ class dev extends \PMVC\PlugIn
         $parent = \PMVC\getOption(); 
     }
 
-    public function dump($s, $type)
+    public function dump($callback, $type)
     {
         if (!$this->isDev($type)) {
             return;
         }
-        $d = \PMVC\plug('debug');
-        $o = $d->getOutput();
-        $o->dump($s,$type);
+        $s = call_user_func($callback);
+        if (strlen($s)) {
+            $d = \PMVC\plug('debug');
+            $o = $d->getOutput();
+            $o->dump($s,$type);
+        }
     }
 
     public function isDev($type)
