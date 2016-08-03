@@ -16,10 +16,10 @@ class dev extends \PMVC\PlugIn
             return;
         }
         $s = call_user_func($callback);
-        if (strlen($s)) {
+        if (!is_null($s)) {
             $d = \PMVC\plug('debug');
             $o = $d->getOutput();
-            $o->dump($s,$type);
+            $o->dump($s, $type);
         }
     }
 
