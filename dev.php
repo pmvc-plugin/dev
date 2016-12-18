@@ -20,6 +20,7 @@ class dev extends \PMVC\PlugIn
             $d = \PMVC\plug('debug');
             $o = $d->getOutput();
             $o->dump($s, $type);
+            \PMVC\unplug('cache_header');
         }
     }
 
