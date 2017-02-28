@@ -47,7 +47,7 @@ class DevTest extends PHPUnit_Framework_TestCase
             _CLASS=>__NAMESPACE__.'\debug_fake'
         ]);
         $d = \PMVC\plug('debug',['output'=>'debug_fake']);
-        $d->setLevelType('hihi');
+        $d->setLevel('hihi');
         \PMVC\plug($this->_plug);
         \PMVC\dev(function(){return 'req';},'hihi');
         $actual = \PMVC\getOption('test');
