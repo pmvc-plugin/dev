@@ -21,6 +21,7 @@ class dev extends \PMVC\PlugIn
             $o = $d->getOutput();
             $o->dump($s, $type);
             \PMVC\unplug('cache_header');
+            return $s;
         }
     }
 
