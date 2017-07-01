@@ -1,13 +1,24 @@
 <?php
+
 namespace PMVC\PlugIn\dev;
+
+use PMVC\Event;
+use PMVC\PlugIn;
 
 ${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\dev';
 
-class dev extends \PMVC\PlugIn
+class dev extends PlugIn
 {
-    public function getAllApps()
+    public function init()
     {
-        $parent = \PMVC\getOption(); 
+        \PMVC\callPlugin(
+            'dispatcher',
+            'attach',
+            [
+                $this,
+                Event\FINISH
+            ]
+        );
     }
 
     public function dump(callable $callback, $type)
