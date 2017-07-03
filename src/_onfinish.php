@@ -13,7 +13,9 @@ class OnFinish
         }, 'header');
 
         \PMVC\dev(function(){
-            return \PMVC\getOption(); 
+            $arr = \PMVC\getOption(); 
+            unset($arr['PW']);
+            return $arr;
         }, 'options');
     }
 }
