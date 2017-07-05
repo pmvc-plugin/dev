@@ -17,5 +17,10 @@ class OnFinish
             unset($arr['PW']);
             return $arr;
         }, 'options');
+
+        \PMVC\dev(function(){
+            $objs = \PMVC\getOption(\PMVC\PLUGIN_INSTANCE);
+            return $objs->keyset();
+        }, 'plugins');
     }
 }
