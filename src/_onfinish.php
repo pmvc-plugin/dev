@@ -22,5 +22,13 @@ class OnFinish
             $objs = \PMVC\getOption(\PMVC\PLUGIN_INSTANCE);
             return $objs->keyset();
         }, 'plugins');
+
+        \PMVC\dev(function(){
+            if (!empty($_SESSION)) {
+                return $_SESSION;
+            } else {
+                return null;
+            }
+        }, 'session');
     }
 }
