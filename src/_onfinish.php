@@ -24,11 +24,7 @@ class OnFinish
         }, 'plugins');
 
         \PMVC\dev(function(){
-            if (!empty($_SESSION)) {
-                return $_SESSION;
-            } else {
-                return null;
-            }
+            return $this->caller->session();
         }, 'session');
     }
 }
