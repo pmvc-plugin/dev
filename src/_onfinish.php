@@ -9,8 +9,8 @@ class OnFinish
     public function __invoke()
     {
         \PMVC\dev(function(){
-            return getallheaders(); 
-        }, 'header');
+            return $this->caller->http();
+        }, 'http');
 
         \PMVC\dev(function(){
             $arr = \PMVC\getOption(); 
