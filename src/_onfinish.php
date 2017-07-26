@@ -26,5 +26,9 @@ class OnFinish
         \PMVC\dev(function(){
             return $this->caller->session();
         }, 'session');
+
+        \PMVC\dev(function(){
+            return $_SERVER;
+        }, 'server');
     }
 }
