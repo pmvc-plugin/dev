@@ -15,5 +15,8 @@
         "pmvc-plugin/debug": "*",
         "pmvc-plugin/annotation": "*"
     },
+    "require-dev": {
+        "pmvc-plugin/dispatcher": "*"
+    },
     "minimum-stability": "dev"
 }

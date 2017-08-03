@@ -20,14 +20,25 @@ class dev extends PlugIn
                 Event\FINISH
             ]
         );
+        \PMVC\callPlugin(
+            'dispatcher',
+            'attachAfter',
+            [ 
+                $this,
+                'resetDebugLevel',
+            ]
+        );
+        $this['dump'] = [$this, 'generalDump'];
+    }
+
+    public function onResetDebugLevel($subject)
+    {
         $this->_levels = array_flip(
             \PMVC\plug('debug')->getLevels()
         );
         // Need put after $this->_levels
         if ($this->isDev('help')) {
             $this['dump'] = [$this->help(), 'store'];
-        } else {
-            $this['dump'] = [$this, 'generalDump'];
         }
     }
 

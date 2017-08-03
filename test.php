@@ -4,7 +4,7 @@ namespace PMVC\PlugIn\dev;
 use PHPUnit_Framework_TestCase;
 use PMVC\PlugIn\debug\DebugDumpInterface;
 
-\PMVC\Load::plug(['debug'=>null]);
+\PMVC\Load::plug(['debug'=>null, 'dispatcher'=>null]);
 \PMVC\addPlugInFolders(['../']);
 
 class DevTest extends PHPUnit_Framework_TestCase
@@ -29,7 +29,7 @@ class DevTest extends PHPUnit_Framework_TestCase
     {
         \PMVC\plug($this->_plug);
         $d = \PMVC\plug('debug');
-        $d['level'] = 'debug';
+        $d->setLevel('debug', true);
         $this->assertFalse(\PMVC\isDev('trace'));
     }
 
@@ -37,7 +37,7 @@ class DevTest extends PHPUnit_Framework_TestCase
     {
         \PMVC\plug($this->_plug);
         $d = \PMVC\plug('debug');
-        $d['level'] = 'trace';
+        $d->setLevel('trace', true);
         $this->assertTrue(\PMVC\isDev('trace'));
     }
 
