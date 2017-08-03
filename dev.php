@@ -9,19 +9,29 @@ ${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\dev';
 
 class dev extends PlugIn
 {
+    private $_levels;
     public function init()
     {
         \PMVC\callPlugin(
             'dispatcher',
-            'attach',
+            'attachAfter',
             [
                 $this,
                 Event\FINISH
             ]
         );
+        $this->_levels = array_flip(
+            \PMVC\plug('debug')->getLevels()
+        );
+        // Need put after $this->_levels
+        if ($this->isDev('help')) {
+            $this['dump'] = [$this->help(), 'store'];
+        } else {
+            $this['dump'] = [$this, 'generalDump'];
+        }
     }
 
-    public function dump(callable $callback, $type)
+    public function generalDump(callable $callback, $type)
     {
         if (!$this->isDev($type)) {
             return;
@@ -41,7 +51,6 @@ class dev extends PlugIn
         if (empty($type)) {
             return false;
         }
-        $levels = \PMVC\plug('debug')->getLevels();
-        return in_array($type, $levels);
+        return isset($this->_levels[$type]);
     }
 }

@@ -6,30 +6,70 @@ ${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\HTTP';
 
 class HTTP 
 {
+    private $_continue = true;
+
     public function __invoke()
     {
-        $headers = getallheaders();
-        $caller = $this->caller;
-        if ($caller->isDev('http-headers')) {
-            return $headers;
-        }
-        if ($caller->isDev('http-get')) {
+        \PMVC\dev(
+        /**
+         * @help return HTTP headers only
+         */
+        function () {
+            $this->_continue = false;
+            return getallheaders();
+        }, 'http-headers');
+
+        \PMVC\dev(
+        /**
+         * @help return $_GET only
+         */
+        function () {
+            $this->_continue = false;
             return $_GET;
-        }
-        if ($caller->isDev('http-post')) {
+        }, 'http-get');
+
+        \PMVC\dev(
+        /**
+         * @help return $_POST only
+         */
+        function () {
+            $this->_continue = false;
             return $_POST;
-        }
-        if ($caller->isDev('http-cookie')) {
+        }, 'http-post');
+
+        \PMVC\dev(
+        /**
+         * @help return $_COOKIE only
+         */
+        function () {
+            $this->_continue = false;
             return $_COOKIE;
-        }
-        if ($caller->isDev('http-request')) {
+        }, 'http-cookie');
+
+        \PMVC\dev(
+        /**
+         * @help return $_REQUEST only
+         */
+        function () {
+            $this->_continue = false;
             return $_REQUEST;
-        }
-        if ($caller->isDev('http-files')) {
+        }, 'http-request');
+
+        \PMVC\dev(
+        /**
+         * @help return $_FILES only
+         */
+        function () {
+            $this->_continue = false;
             return $_FILES;
+        }, 'http-files');
+        
+        if (!$this->_continue) {
+            return;
         }
+
         return [
-            'headers'=> $headers,
+            'headers'=> getallheaders(),
             'get'    => $_GET,
             'post'   => $_POST,
             'cookie' => $_COOKIE,

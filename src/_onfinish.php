@@ -8,27 +8,63 @@ class OnFinish
 {
     public function __invoke()
     {
-        \PMVC\dev(function(){
+        \PMVC\dev(
+        /**
+        * @help Get http information
+        */
+        function(){
             return $this->caller->http();
         }, 'http');
 
-        \PMVC\dev(function(){
+        \PMVC\dev(
+        /**
+        * @help Get all configs 
+        */
+        function(){
             $arr = \PMVC\getOption(); 
             unset($arr['PW']);
             return $arr;
         }, 'options');
 
-        \PMVC\dev(function(){
+        \PMVC\dev(
+        /**
+        * @help Get plugin list
+        */
+        function(){
             $objs = \PMVC\getOption(\PMVC\PLUGIN_INSTANCE);
             return $objs->keyset();
         }, 'plugins');
 
-        \PMVC\dev(function(){
+        \PMVC\dev(
+        /**
+        * @help Get session data 
+        */
+        function(){
             return $this->caller->session();
         }, 'session');
 
-        \PMVC\dev(function(){
+        \PMVC\dev(
+        /**
+        * @help Get server information 
+        */
+        function(){
             return $_SERVER;
         }, 'server');
+
+        \PMVC\dev(
+        /**
+        * @help Get bucket information
+        */
+        function(){
+            return \PMVC\plug('getenv')->
+                get('HTTP_X_BUCKET_TESTS');
+        }, 'buckets');
+
+        if ($this->caller->isDev('help')) {
+            $this->
+                caller->
+                help()->
+                dump();
+        }
     }
 }
