@@ -14,7 +14,10 @@ class dev extends PlugIn
     {
         \PMVC\callPlugin(
             'dispatcher',
-            'attachAfter',
+            /**
+             * Should not use attachAfter, Because will miss view_json
+             */
+            'attach',
             [
                 $this,
                 Event\FINISH
@@ -22,7 +25,7 @@ class dev extends PlugIn
         );
         \PMVC\callPlugin(
             'dispatcher',
-            'attachAfter',
+            'attach',
             [ 
                 $this,
                 'resetDebugLevel',
