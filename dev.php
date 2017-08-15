@@ -34,7 +34,7 @@ class dev extends PlugIn
         $this['dump'] = [$this, 'generalDump'];
     }
 
-    public function onResetDebugLevel($subject)
+    public function onResetDebugLevel()
     {
         $this->_levels = array_flip(
             \PMVC\plug('debug')->getLevels()

@@ -2,16 +2,16 @@
 
 namespace PMVC\PlugIn\dev;
 
-use PMVC\HashMap;
 
 ${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\Help';
 
 class Help
 {
     private $_help;
+    private $_hash;
     public function __construct($caller)
     {
-        $this->_help = new HashMap();
+        $this->_help = [];
     }
 
     public function __invoke()
@@ -39,19 +39,25 @@ class Help
 
     public function docOnly($a)
     {
-        return $a[0];
+        return $a[0][0];
     }
 
     public function store(callable $callback, $type)
     {
-        if (empty($this->_help[$type])) {
-            $annot = \PMVC\plug('annotation');
-            $doc = $annot->get($callback);
-            $this->_help[$type] = [
+        $annot = \PMVC\plug('annotation');
+        $doc = $annot->get($callback);
+        $file = $doc->getFile();
+        $line = $doc->getStartLine();
+        $hash = $file.$line;
+        if (!isset($this->_hash[$hash])) {
+            $this->_hash[$hash] = true;
+            $arrType =& \PMVC\get($this->_help, $type, []);
+            $arrType[] = [
                 $doc['help'],
-                'file'=>$doc->getFile(),
-                'startLine'=>$doc->getStartLine()
+                'file'=>$file,
+                'startLine'=>$line
             ];
+            $this->_help[$type] =& $arrType;
         }
         $this->caller->generalDump($callback, $type);
     }
