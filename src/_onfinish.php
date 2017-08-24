@@ -18,6 +18,15 @@ class OnFinish
 
         \PMVC\dev(
         /**
+        * @help Show my real ip. 
+        */
+        function(){
+            return $this->caller->myip();
+        }, 'myip');
+
+
+        \PMVC\dev(
+        /**
         * @help Get all configs 
         */
         function(){
@@ -59,6 +68,17 @@ class OnFinish
             return \PMVC\plug('getenv')->
                 get('HTTP_X_BUCKET_TESTS');
         }, 'buckets');
+
+        \PMVC\dev(
+        /**
+        * @help Get app and plugins folder information 
+        */
+        function(){
+            return [
+                'app'=> \PMVC\folders(_RUN_APP),
+                'plugin'=> \PMVC\folders(_PLUGIN),
+            ];
+        }, 'folders');
 
         if ($this->caller->isDev('help')) {
             $this->
