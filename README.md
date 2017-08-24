@@ -27,3 +27,10 @@ dev
 #### 2.2 Or use composer command-line
    * php composer.phar require pmvc-plugin/dev
 
+### Unit test tip
+```
+        \PMVC\plug('debug',[
+            'output'=> '*Output Plugin*'
+        ])->setLevel('*Test Level*', true);
+        \PMVC\plug('dev')->onResetDebugLevel();
+```
