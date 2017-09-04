@@ -16,7 +16,10 @@ class HTTP
          */
         function () {
             $this->_continue = false;
-            return getallheaders();
+            return \PMVC\callPlugin(
+                'http',
+                'getallheaders'
+            );
         }, 'http-headers');
 
         \PMVC\dev(
@@ -69,7 +72,10 @@ class HTTP
         }
 
         return [
-            'headers'=> getallheaders(),
+            'headers'=> \PMVC\callPlugin(
+                'http',
+                'getallheaders'
+            ),
             'get'    => $_GET,
             'post'   => $_POST,
             'cookie' => $_COOKIE,
