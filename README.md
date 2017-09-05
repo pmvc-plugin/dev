@@ -7,6 +7,28 @@
 dev
 ===============
 
+## Best plug order
+   * put dev before debug, you could get most of plug trace
+```
+\PMVC\Load::plug([
+    'controller'=>null
+    ,'dispatcher'=>null
+
+    /*dev*/
+    ,'error'=>['all']
+    ,'dev'=>null
+    ,'debug'=>null
+]);
+```
+
+## Unit test tip
+```
+        \PMVC\plug('debug',[
+            'output'=> '*Output Plugin*'
+        ])->setLevel('*Test Level*', true);
+        \PMVC\plug('dev')->onResetDebugLevel();
+```
+
 ## Install with Composer
 ### 1. Download composer
    * mkdir test_folder
@@ -27,10 +49,3 @@ dev
 #### 2.2 Or use composer command-line
    * php composer.phar require pmvc-plugin/dev
 
-### Unit test tip
-```
-        \PMVC\plug('debug',[
-            'output'=> '*Output Plugin*'
-        ])->setLevel('*Test Level*', true);
-        \PMVC\plug('dev')->onResetDebugLevel();
-```
