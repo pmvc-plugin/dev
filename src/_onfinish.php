@@ -24,7 +24,6 @@ class OnFinish
             return $this->caller->myip();
         }, 'myip');
 
-
         \PMVC\dev(
         /**
         * @help Get all configs 
@@ -57,7 +56,7 @@ class OnFinish
         * @help Get server information 
         */
         function(){
-            return $_SERVER;
+            return $this->caller->server();
         }, 'server');
 
         \PMVC\dev(

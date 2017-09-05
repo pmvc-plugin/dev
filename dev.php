@@ -14,17 +14,6 @@ class dev extends PlugIn
     {
         \PMVC\callPlugin(
             'dispatcher',
-            /**
-             * Should not use attachAfter, Because will miss view_json
-             */
-            'attach',
-            [
-                $this,
-                Event\FINISH
-            ]
-        );
-        \PMVC\callPlugin(
-            'dispatcher',
             'attach',
             [ 
                 $this,
@@ -36,6 +25,17 @@ class dev extends PlugIn
 
     public function onResetDebugLevel()
     {
+        \PMVC\callPlugin(
+            'dispatcher',
+            /**
+             * Should not use attachAfter, Because will miss view_json
+             */
+            'attach',
+            [
+                $this,
+                Event\FINISH
+            ]
+        );
         $this->_levels = array_flip(
             \PMVC\plug('debug')->getLevels()
         );
