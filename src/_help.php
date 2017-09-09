@@ -23,6 +23,14 @@ class Help
     {
         \PMVC\dev(
         /**
+        * @help Dump phpinfo
+        */
+        function(){
+            phpinfo();
+        }, 'phpinfo()');
+
+        \PMVC\dev(
+        /**
         * @help Get help definition. 
         */
         function(){
