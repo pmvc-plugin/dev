@@ -10,6 +10,7 @@ ${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\dev';
 class dev extends PlugIn
 {
     private $_levels;
+    private $_output;
     public function init()
     {
         \PMVC\callPlugin(
@@ -52,12 +53,20 @@ class dev extends PlugIn
         }
         $s = call_user_func($callback);
         if (!is_null($s)) {
-            $d = \PMVC\plug('debug');
-            $o = $d->getOutput();
-            $o->dump($s, $type);
-            \PMVC\unplug('cache_header');
+            $this->_getOutput()->dump($s, $type);
             return $s;
         }
+    }
+
+    private function _getOutput()
+    {
+        if (!$this->_output) {
+            $d = \PMVC\plug('debug');
+            $o = $d->getOutput();
+            \PMVC\unplug('cache_header');
+            $this->_output = $o;
+        }
+        return $this->_output;
     }
 
     public function isDev($type)

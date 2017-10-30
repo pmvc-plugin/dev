@@ -18,6 +18,14 @@ class OnFinish
 
         \PMVC\dev(
         /**
+        * @help Get PMVC input information 
+        */
+        function(){
+            return $this->caller->input();
+        }, 'input');
+
+        \PMVC\dev(
+        /**
         * @help Show my real ip. 
         */
         function(){
