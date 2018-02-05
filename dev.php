@@ -13,14 +13,8 @@ class dev extends PlugIn
     private $_output;
     public function init()
     {
-        \PMVC\callPlugin(
-            'dispatcher',
-            'attach',
-            [ 
-                $this,
-                'resetDebugLevel',
-            ]
-        );
+        //should have alert here, if dispatcher not plug 
+        \PMVC\plug('dispatcher')->attach($this, 'resetDebugLevel');
         $this['dump'] = [$this, 'generalDump'];
     }
 
