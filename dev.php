@@ -13,9 +13,10 @@ class dev extends PlugIn
     private $_output;
     public function init()
     {
-        //should have alert here, if dispatcher not plug 
-        \PMVC\plug('dispatcher')->attach($this, 'resetDebugLevel');
         $this['dump'] = [$this, 'generalDump'];
+        // 1. should have alert here, if dispatcher not plug
+        // 2. need locate after $this['dump'] xxx else will trigger dump method not found error.
+        \PMVC\plug('dispatcher')->attach($this, 'resetDebugLevel');
     }
 
     public function onResetDebugLevel()
