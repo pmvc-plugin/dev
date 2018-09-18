@@ -41,6 +41,14 @@ class DevTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(\PMVC\isDev('trace'));
     }
 
+    function testIsDevAutoAppendToHtmlWithHelp()
+    {
+        \PMVC\plug($this->_plug);
+        $d = \PMVC\plug('debug');
+        $d->setLevel('help', true);
+        $this->assertTrue(\PMVC\isDev('dump'));
+    }
+
     function testDump()
     {
         \PMVC\plug('debug_fake',[

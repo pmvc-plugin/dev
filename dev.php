@@ -37,6 +37,7 @@ class dev extends PlugIn
         );
         // Need put after $this->_levels
         if ($this->isDev('help')) {
+            $this->_levels['dump'] = true;
             $this['dump'] = [$this->help(), 'store'];
         }
     }
