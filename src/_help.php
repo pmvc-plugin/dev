@@ -2,7 +2,6 @@
 
 namespace PMVC\PlugIn\dev;
 
-
 ${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\Help';
 
 class Help
@@ -26,7 +25,7 @@ class Help
         * @help Dump phpinfo
         */
         function(){
-            phpinfo();
+          return $this->caller->phpinfo();
         }, 'phpinfo()');
 
         \PMVC\dev(
