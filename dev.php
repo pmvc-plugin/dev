@@ -17,6 +17,9 @@ class dev extends PlugIn
         // 1. should have alert here, if dispatcher not plug
         // 2. need locate after $this['dump'] xxx else will trigger dump method not found error.
         \PMVC\plug('dispatcher')->attach($this, 'resetDebugLevel');
+        if (\PMVC\callPlugin('debug', 'getLevels')) {
+            $this->onResetDebugLevel();
+        }
     }
 
     public function onResetDebugLevel()
