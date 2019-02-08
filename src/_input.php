@@ -14,8 +14,8 @@ class Input
             'request'=> \PMVC\get($req),
             'action'=> $c->getAppAction(),
             'app'=> $c->getApp(),
+            'app-real' => $c[_REAL_APP],
             'folders' => [
-              'app'  => $c[_RUN_APP],
               'apps' => $c[_RUN_APPS],
               'site' => $c->getAppsParent(),
               'search' => [
