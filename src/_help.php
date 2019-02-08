@@ -45,13 +45,14 @@ class Help
             function () {
                 $pDebug = \PMVC\callPlugin('debug');
                 $pError = \PMVC\callPlugin('error');
+                $pDump = empty($pDebug) ? null : $pDebug->getOutput();
                 return [
-                'plugin' => [
-                'debug' => \PMVC\get($pDebug),
-                'debug-dump' => empty($pDebug) ? null : \PMVC\get($pDebug->getOutput()),
-                'error' => \PMVC\get($pError)
-                ],
-                'levels' => empty($pDebug) ? null : $pDebug->getLevels() 
+                  'plugin' => [
+                    'debug' => \PMVC\get($pDebug),
+                    'debug-dump' => \PMVC\get($pDump),
+                    'error' => \PMVC\get($pError)
+                  ],
+                  'levels' => empty($pDebug) ? null : $pDebug->getLevels() 
                 ];
             }, 'debug-info'
         );
