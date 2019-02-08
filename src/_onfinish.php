@@ -84,18 +84,6 @@ class OnFinish
             }, 'buckets'
         );
 
-        \PMVC\dev(
-            /**
-            * @help Get app and plugins folder information 
-            */
-            function () {
-                return [
-                'app'=> \PMVC\folders(_RUN_APP),
-                'plugin'=> \PMVC\folders(_PLUGIN),
-                ];
-            }, 'folders'
-        );
-
         if ($this->caller->isDev('help')) {
             $this->
                 caller
