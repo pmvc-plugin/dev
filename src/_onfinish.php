@@ -9,89 +9,98 @@ class OnFinish
     public function __invoke()
     {
         \PMVC\dev(
-        /**
-        * @help Get http information
-        */
-        function(){
-            return $this->caller->http();
-        }, 'http');
+            /**
+            * @help Get http information
+            */
+            function () {
+                return $this->caller->http();
+            }, 'http'
+        );
 
         \PMVC\dev(
-        /**
-        * @help Get PMVC input information 
-        */
-        function(){
-            return $this->caller->input();
-        }, 'input');
+            /**
+            * @help Get PMVC input information 
+            */
+            function () {
+                return $this->caller->input();
+            }, 'input'
+        );
 
         \PMVC\dev(
-        /**
-        * @help Show my real ip. 
-        */
-        function(){
-            return $this->caller->myip();
-        }, 'myip');
+            /**
+            * @help Show my real ip. 
+            */
+            function () {
+                return $this->caller->myip();
+            }, 'myip'
+        );
 
         \PMVC\dev(
-        /**
-        * @help Get all configs 
-        */
-        function(){
-            $arr = \PMVC\getOption(); 
-            unset($arr['PW']);
-            return $arr;
-        }, 'options');
+            /**
+            * @help Get all configs 
+            */
+            function () {
+                $arr = \PMVC\getOption(); 
+                unset($arr['PW']);
+                return $arr;
+            }, 'options'
+        );
 
         \PMVC\dev(
-        /**
-        * @help Get plugin list
-        */
-        function(){
-            $objs = \PMVC\getOption(\PMVC\PLUGIN_INSTANCE);
-            return $objs->keyset();
-        }, 'plugins');
+            /**
+            * @help Get plugin list
+            */
+            function () {
+                $objs = \PMVC\getOption(\PMVC\PLUGIN_INSTANCE);
+                return $objs->keyset();
+            }, 'plugins'
+        );
 
         \PMVC\dev(
-        /**
-        * @help Get session data 
-        */
-        function(){
-            return $this->caller->session();
-        }, 'session');
+            /**
+            * @help Get session data 
+            */
+            function () {
+                return $this->caller->session();
+            }, 'session'
+        );
 
         \PMVC\dev(
-        /**
-        * @help Get server information 
-        */
-        function(){
-            return $this->caller->server();
-        }, 'server');
+            /**
+            * @help Get server information 
+            */
+            function () {
+                return $this->caller->server();
+            }, 'server'
+        );
 
         \PMVC\dev(
-        /**
-        * @help Get bucket information
-        */
-        function(){
-            return \PMVC\plug('getenv')->
+            /**
+            * @help Get bucket information
+            */
+            function () {
+                return \PMVC\plug('getenv')->
                 get('HTTP_X_BUCKET_TESTS');
-        }, 'buckets');
+            }, 'buckets'
+        );
 
         \PMVC\dev(
-        /**
-        * @help Get app and plugins folder information 
-        */
-        function(){
-            return [
+            /**
+            * @help Get app and plugins folder information 
+            */
+            function () {
+                return [
                 'app'=> \PMVC\folders(_RUN_APP),
                 'plugin'=> \PMVC\folders(_PLUGIN),
-            ];
-        }, 'folders');
+                ];
+            }, 'folders'
+        );
 
         if ($this->caller->isDev('help')) {
             $this->
-                caller->
-                help()->
-                dump();
+                caller
+                ->help()
+                ->dump();
         }
     }
 }

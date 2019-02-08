@@ -21,40 +21,43 @@ class Help
     public function dump()
     {
         \PMVC\dev(
-        /**
-        * @help Dump phpinfo
-        */
-        function(){
-          return $this->caller->phpinfo();
-        }, 'phpinfo()');
+            /**
+            * @help Dump phpinfo
+            */
+            function () {
+                return $this->caller->phpinfo();
+            }, 'phpinfo()'
+        );
 
         \PMVC\dev(
-        /**
-        * @help Get help definition. 
-        */
-        function(){
-            return \PMVC\get($this->_help);
-        }, 'help-where');
+            /**
+            * @help Get help definition. 
+            */
+            function () {
+                return \PMVC\get($this->_help);
+            }, 'help-where'
+        );
 
         \PMVC\dev(
-        /**
-        * @help Get Debug plugin information 
-        */
-        function(){
-            $pDebug = \PMVC\callPlug('debug');
-            return [
-              'plugin' => [
+            /**
+            * @help Get Debug plugin information 
+            */
+            function () {
+                $pDebug = \PMVC\callPlugin('debug');
+                return [
+                'plugin' => [
                 'debug' => \PMVC\get($pDebug),
-                'debug-dump' => \PMVC\get($pDebug->getOutput()),
-                'error' => \PMVC\get(\PMVC\callPlug('error'))
-              ],
-              'levels' => $pDebug->getLevels() 
-            ];
-        }, 'debug-info');
+                'debug-dump' => empty($pDebug) ? null : \PMVC\get($pDebug->getOutput()),
+                'error' => \PMVC\get(\PMVC\callPlugin('error'))
+                ],
+                'levels' => empty($pDebug) ? null : $pDebug->getLevels() 
+                ];
+            }, 'debug-info'
+        );
 
         \PMVC\plug('debug')->
-            getOutput()->
-            dump(
+            getOutput()
+            ->dump(
                 array_map([$this, 'docOnly'], \PMVC\get($this->_help)),
                 'Dev Parameters Help'
             );

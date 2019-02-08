@@ -9,37 +9,35 @@ class PhpInfo
     public function __invoke()
     {
         if (\PMVC\getOption(_VIEW_ENGINE)==='json') {
-          return $this->toArray();	
+            return $this->toArray();    
         } else {
-          $this->toHtml();
+            $this->toHtml();
         }
     }
 
     public function toHtml()
     {
-      phpinfo();
+        phpinfo();
     }
 
     public function toArray()
     {
-	ob_start();
-	$this->toHtml();
-	$info_arr = array();
-	$info_lines = explode("\n", strip_tags(ob_get_clean(), "<tr><td><h2>"));
-	$cat = "General";
-	foreach($info_lines as $line)
-	{
-	    // new cat?
-	    preg_match("~<h2>(.*)</h2>~", $line, $title) ? $cat = $title[1] : null;
-	    if(preg_match("~<tr><td[^>]+>([^<]*)</td><td[^>]+>([^<]*)</td></tr>~", $line, $val))
-	    {
-		$info_arr[$cat][$val[1]] = $val[2];
-	    }
-	    elseif(preg_match("~<tr><td[^>]+>([^<]*)</td><td[^>]+>([^<]*)</td><td[^>]+>([^<]*)</td></tr>~", $line, $val))
-	    {
-		$info_arr[$cat][$val[1]] = array("local" => $val[2], "master" => $val[3]);
-	    }
-	}
-	return $info_arr;
+        ob_start();
+        $this->toHtml();
+        $info_arr = array();
+        $info_lines = explode("\n", strip_tags(ob_get_clean(), "<tr><td><h2>"));
+        $cat = "General";
+        foreach($info_lines as $line)
+        {
+            // new cat?
+            preg_match("~<h2>(.*)</h2>~", $line, $title) ? $cat = $title[1] : null;
+            if(preg_match("~<tr><td[^>]+>([^<]*)</td><td[^>]+>([^<]*)</td></tr>~", $line, $val)) {
+                $info_arr[$cat][$val[1]] = $val[2];
+            }
+            elseif(preg_match("~<tr><td[^>]+>([^<]*)</td><td[^>]+>([^<]*)</td><td[^>]+>([^<]*)</td></tr>~", $line, $val)) {
+                $info_arr[$cat][$val[1]] = array("local" => $val[2], "master" => $val[3]);
+            }
+        }
+        return $info_arr;
     }
 }
