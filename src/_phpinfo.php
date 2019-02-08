@@ -8,7 +8,16 @@ class PhpInfo
 {
     public function __invoke()
     {
-        if (\PMVC\getOption(_VIEW_ENGINE)==='json') {
+        $isForceArray = false;
+        \PMVC\dev(
+            /**
+             * @help Force phpinfo to array.
+             */
+            function () use (&$isForceArray) {
+                $isForceArray = true;
+            }, 'phpinfo-to-array'
+        );
+        if ($isForceArray || \PMVC\getOption(_VIEW_ENGINE)==='json') {
             return $this->toArray();    
         } else {
             $this->toHtml();
