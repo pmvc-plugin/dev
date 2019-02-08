@@ -36,6 +36,22 @@ class Help
             return \PMVC\get($this->_help);
         }, 'help-where');
 
+        \PMVC\dev(
+        /**
+        * @help Get Debug plugin information 
+        */
+        function(){
+            $pDebug = \PMVC\callPlug('debug');
+            return [
+              'plugin' => [
+                'debug' => \PMVC\get($pDebug),
+                'debug-dump' => \PMVC\get($pDebug->getOutput()),
+                'error' => \PMVC\get(\PMVC\callPlug('error'))
+              ],
+              'levels' => $pDebug->getLevels() 
+            ];
+        }, 'debug-info');
+
         \PMVC\plug('debug')->
             getOutput()->
             dump(
