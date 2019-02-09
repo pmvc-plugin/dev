@@ -62,10 +62,13 @@ class Help
             * @help Get global defined.
             */
             function () {
+              $funcs = get_defined_functions();
+              $funcs['user-global'] = array_filter($funcs['user'], function ($v){
+                return false === strpos($v, '\\');
+              });
               return [
-                'variables' => $GLOBAL,
-                'functions' => get_defined_functions(),
-                'constants' => get_defined_constants(),
+                'variables' => array_keys($GLOBALS),
+                'functions' => $funcs,
                 'classes'   => get_declared_classes(),
               ];
             },
