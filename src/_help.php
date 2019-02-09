@@ -57,6 +57,21 @@ class Help
             }, 'debug-info'
         );
 
+        \PMVC\dev(
+            /**
+            * @help Get global defined.
+            */
+            function () {
+              return [
+                'variables' => $GLOBAL,
+                'functions' => get_defined_functions(),
+                'constants' => get_defined_constants(),
+                'classes'   => get_declared_classes(),
+              ];
+            },
+            'global'
+        );
+
         \PMVC\plug('debug')->
             getOutput()
             ->dump(
