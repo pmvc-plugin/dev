@@ -8,7 +8,7 @@ class OnFinish
 {
     public function __construct($caller)
     {
-      $caller[FINISH] = 1;
+        $caller[FINISH] = 1;
     }
 
     public function __invoke()
