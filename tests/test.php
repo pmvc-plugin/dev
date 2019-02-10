@@ -4,9 +4,6 @@ namespace PMVC\PlugIn\dev;
 use PHPUnit_Framework_TestCase;
 use PMVC\PlugIn\debug\DebugDumpInterface;
 
-\PMVC\Load::plug(['debug'=>null, 'dispatcher'=>null]);
-\PMVC\addPlugInFolders(['../']);
-
 class DevTest extends PHPUnit_Framework_TestCase
 {
     private $_plug = 'dev';

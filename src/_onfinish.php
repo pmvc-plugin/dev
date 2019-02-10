@@ -6,6 +6,11 @@ ${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\OnFinish';
 
 class OnFinish
 {
+    public function __construct($caller)
+    {
+      $caller[FINISH] = 1;
+    }
+
     public function __invoke()
     {
         \PMVC\dev(

@@ -7,6 +7,8 @@ use PMVC\PlugIn;
 
 ${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\dev';
 
+const FINISH = Event\FINISH;
+
 class dev extends PlugIn
 {
     private $_levels;
@@ -32,7 +34,7 @@ class dev extends PlugIn
             'attach',
             [
                 $this,
-                Event\FINISH
+                FINISH
             ]
         );
         $this->_levels = array_flip(
@@ -74,5 +76,12 @@ class dev extends PlugIn
             return false;
         }
         return isset($this->_levels[$type]);
+    }
+
+    public function __destruct()
+    {
+      if (!$this[FINISH]) {
+        $this->onFinish();
+      }
     }
 }

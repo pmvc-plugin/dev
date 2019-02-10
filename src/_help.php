@@ -63,13 +63,32 @@ class Help
             */
             function () {
               $funcs = get_defined_functions();
-              $funcs['user-global'] = array_filter($funcs['user'], function ($v){
-                return false === strpos($v, '\\');
-              });
+              $funcs['user-global'] = array_filter(
+                $funcs['user'],
+                function ($v){
+                  return false === strpos($v, '\\');
+                }
+              );
+              sort($funcs['user-global']);
+              $funcs['user-global'] = (object)$funcs['user-global'];
+              $vars = array_keys($GLOBALS);
+              sort($vars);
+              $test = \PMVC\get($_REQUEST, '--func');
+              $testInfo = null;
+              if ($test) {
+                $annot = \PMVC\plug('annotation');
+                $doc = $annot->get($test);
+                $testInfo = [
+                  'name' => $test,
+                  'file' => $doc->getFile(),
+                  'line' => $doc->getStartLine()
+                ];
+              }
               return [
-                'variables' => array_keys($GLOBALS),
+                'variables' => (object)$vars,
                 'functions' => $funcs,
                 'classes'   => get_declared_classes(),
+                'test'      => $testInfo,
               ];
             },
             'global'
