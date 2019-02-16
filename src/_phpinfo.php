@@ -15,7 +15,7 @@ class PhpInfo
              */
             function () use (&$isForceArray) {
                 $isForceArray = true;
-            }, 'phpinfo-to-array'
+            }, 'to-array'
         );
         if ($isForceArray || \PMVC\getOption(_VIEW_ENGINE)==='json') {
             return $this->toArray();    
