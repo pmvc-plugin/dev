@@ -26,11 +26,15 @@ class GlobalInfo
         if ($tFunc) {
             $annot = \PMVC\plug('annotation');
             $doc = $annot->get($tFunc);
-            $tFuncInfo = [
-            'name' => $tFunc,
-            'file' => $doc->getFile(),
-            'line' => $doc->getStartLine()
-            ];
+            if ($doc) {
+                $tFuncInfo = [
+                'name' => $tFunc,
+                'file' => $doc->getFile(),
+                'line' => $doc->getStartLine()
+                ];
+            } else {
+                $tFuncInfo = '['.$tFunc.'] not found.'
+            }
         }
         $tVar = \PMVC\get($_REQUEST, '--var');
         $tVarInfo = null;
