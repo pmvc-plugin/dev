@@ -33,7 +33,7 @@ class GlobalInfo
                 'line' => $doc->getStartLine()
                 ];
             } else {
-                $tFuncInfo = '['.$tFunc.'] not found.'
+                $tFuncInfo = '['.$tFunc.'] not found.';
             }
         }
         $tVar = \PMVC\get($_REQUEST, '--var');
