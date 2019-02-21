@@ -1,11 +1,8 @@
 <?php
+
 namespace PMVC\PlugIn\dev;
 
 use PHPUnit_Framework_TestCase;
-use PMVC\PlugIn\debug\DebugDumpInterface;
-
-\PMVC\Load::plug(['debug'=>null, 'dispatcher'=>null]);
-\PMVC\addPlugInFolders(['../']);
 
 class DevTest extends PHPUnit_Framework_TestCase
 {
@@ -51,9 +48,6 @@ class DevTest extends PHPUnit_Framework_TestCase
 
     function testDump()
     {
-        \PMVC\plug('debug_fake',[
-            _CLASS=>__NAMESPACE__.'\debug_fake'
-        ]);
         $d = \PMVC\plug('debug',['output'=>'debug_fake']);
         $d->setLevel('hihi');
         \PMVC\plug($this->_plug);
@@ -67,15 +61,3 @@ class DevTest extends PHPUnit_Framework_TestCase
     }
 }
 
-class debug_fake
-    extends \PMVC\PlugIn
-    implements DebugDumpInterface
-{
-    function escape($s)
-    {
-    }
-    function dump($p, $type='')
-    {
-        \PMVC\option('set','test',[$p,$type]);
-    }
-}
