@@ -88,7 +88,7 @@ class OnFinish
             $this->
                 caller
                 ->help()
-                ->dump();
+                ->finish();
         }
     }
 }

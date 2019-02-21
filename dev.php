@@ -64,6 +64,7 @@ class dev extends PlugIn
             $o = $d->getOutput();
             \PMVC\unplug('cache_header');
             $this->_output = $o;
+            $d->httpResponseCode();
         }
         return $this->_output;
     }

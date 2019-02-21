@@ -18,7 +18,7 @@ class Help
         return $this;
     }
 
-    public function dump()
+    public function finish()
     {
         \PMVC\dev(
             /**
