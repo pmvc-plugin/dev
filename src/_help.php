@@ -67,8 +67,9 @@ class Help
             'global'
         );
 
-        \PMVC\plug('debug')->
-            getOutput()
+        $pDebug = \PMVC\plug('debug');
+        $pDebug->httpResponseCode();
+        $pDebug->getOutput()
             ->dump(
                 array_map([$this, 'docOnly'], \PMVC\get($this->_help)),
                 'Dev Parameters Help'
