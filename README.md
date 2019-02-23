@@ -29,6 +29,9 @@ dev
         \PMVC\plug('dev')->onResetDebugLevel();
 ```
 
+## Why help also trigger dump
+* https://github.com/pmvc-plugin/dev/blob/master/dev.php#L45
+
 ## Install with Composer
 ### 1. Download composer
    * mkdir test_folder
