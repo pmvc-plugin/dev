@@ -21,6 +21,43 @@ class GlobalInfo
         sort($vars);
         $constants = array_keys(get_defined_constants());
         sort($constants);
+
+        return [
+          'variables' => (object)$vars,
+          'functions' => $funcs,
+          'classes'   => get_declared_classes(),
+          'constants' => (object)$constants,
+          'test'      => [
+            'class' => $this->_getTestClass(),
+            'func'  => $this->_getTestFunc(),
+            'var'   => $this->_getTestVar(),
+            'const' => $this->_getTestConst(),
+          ],
+        ];
+    }
+
+    private function _getTestClass()
+    {
+        $tClass = \PMVC\get($_REQUEST, '--class');
+        $tClassInfo = null;
+        if ($tClass) {
+            $annot = \PMVC\plug('annotation');
+            $doc = $annot->get($tClass);
+            if ($doc) {
+                $tClassInfo = [
+                'name' => $tClass,
+                'file' => $doc->getFile(),
+                'line' => $doc->getStartLine()
+                ];
+            } else {
+                $tClassInfo = '['.$tClass.'] not found.';
+            }
+        } 
+        return $tClassInfo;
+    }
+
+    private function _getTestFunc()
+    {
         $tFunc = \PMVC\get($_REQUEST, '--func');
         $tFuncInfo = null;
         if ($tFunc) {
@@ -36,6 +73,11 @@ class GlobalInfo
                 $tFuncInfo = '['.$tFunc.'] not found.';
             }
         }
+        return $tFuncInfo;
+    }
+
+    private function _getTestVar()
+    {
         $tVar = \PMVC\get($_REQUEST, '--var');
         $tVarInfo = null;
         if ($tVar) {
@@ -44,6 +86,11 @@ class GlobalInfo
             'test' => $GLOBALS[$tVar],
             ];
         }
+        return $tVarInfo;
+    }
+
+    private function _getTestConst()
+    {
         $tConst = \PMVC\get($_REQUEST, '--const');
         $tConstInfo = null;
         if ($tConst) {
@@ -52,16 +99,6 @@ class GlobalInfo
             'test' => constant($tConst),
             ];
         }
-        return [
-          'variables' => (object)$vars,
-          'functions' => $funcs,
-          'classes'   => get_declared_classes(),
-          'constants' => (object)$constants,
-          'test'      => [
-            'func'  => $tFuncInfo,
-            'var'   => $tVarInfo,
-            'const' => $tConstInfo,
-          ],
-        ];
+        return $tConstInfo;
     }
 }
