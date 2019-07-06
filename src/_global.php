@@ -32,6 +32,12 @@ class GlobalInfo
             'func'  => $this->_getTestFunc(),
             'var'   => $this->_getTestVar(),
             'const' => $this->_getTestConst(),
+            'help'=> [
+              'class'=> '?&--class=your_class',
+              'func'=> '?&--func=your_function',
+              'var'=> '?&--var=your_global_variable',
+              'const'=> '?&--const=your_const',
+            ],
           ],
         ];
     }
