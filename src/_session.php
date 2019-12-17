@@ -10,7 +10,7 @@ class Session
     {
         if (!empty($_SESSION)) {
             $session = $_SESSION;
-            array_walk(
+            array_walk_recursive(
                 $session,
                 [
                     $this,
@@ -31,18 +31,14 @@ class Session
         }
     }
 
-    public function cookSession(&$session)
+    public function cookSession(&$item, $key)
     {
-        if (\PMVC\isArrayAccess($session)) {
-            $arr = \PMVC\get($session);
-            array_walk(
-                $arr,
-                [
-                    $this,
-                    'cookSession'
-                ]
-            );
-            $session = $arr;
+        if (\PMVC\isArrayAccess($item)) {
+            $item = \PMVC\get($item);
+        }
+        $pUtf8 = \PMVC\plug('utf8');
+        if (!$pUtf8->detectEncoding($item, 'utf-8', true)) {
+          $item = $pUtf8->convertEncoding($item, 'utf-8');
         }
     }
 }

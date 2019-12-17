@@ -12,6 +12,7 @@
     ],
     "require": {
         "pmvc/pmvc": "*",
+        "pmvc-plugin/utf8": "*",
         "pmvc-plugin/debug": "*",
         "pmvc-plugin/dispatcher": "*",
         "pmvc-plugin/annotation": "*"
