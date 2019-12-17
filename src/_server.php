@@ -2,7 +2,8 @@
 
 namespace PMVC\PlugIn\dev;
 
-${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\SERVER';
+${_INIT_CONFIG
+}[_CLASS] = __NAMESPACE__.'\SERVER';
 
 class SERVER
 {

@@ -2,7 +2,8 @@
 
 namespace PMVC\PlugIn\dev;
 
-${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\Session';
+${_INIT_CONFIG
+}[_CLASS] = __NAMESPACE__.'\Session';
 
 class Session
 {
@@ -38,7 +39,7 @@ class Session
         }
         $pUtf8 = \PMVC\plug('utf8');
         if (!$pUtf8->detectEncoding($item, 'utf-8', true)) {
-          $item = $pUtf8->convertEncoding($item, 'utf-8');
+            $item = $pUtf8->convertEncoding($item, 'utf-8');
         }
     }
 }
