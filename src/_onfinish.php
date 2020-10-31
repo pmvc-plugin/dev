@@ -43,12 +43,18 @@ class OnFinish
 
         \PMVC\dev(
             /**
-            * @help Get all configs 
+            * @help Get all configs ?&--option=dump-one-option
             */
             function () {
+                $request = $this->caller->request();
+                $one = \PMVC\get($request, '--option');
                 $arr = \PMVC\getOption(); 
                 unset($arr['PW']);
-                return $arr;
+                if (empty($one)) {
+                  return $arr;
+                } else {
+                  return [$one => \PMVC\get($arr, $one)];
+                }
             }, 'options'
         );
 

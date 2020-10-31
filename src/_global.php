@@ -9,6 +9,7 @@ class GlobalInfo
 {
     public function __invoke()
     {
+        $this->request = $this->caller->request();
         $funcs = get_defined_functions();
         $funcs['user-global'] = array_filter(
             $funcs['user'],
@@ -23,29 +24,46 @@ class GlobalInfo
         $constants = array_keys(get_defined_constants());
         sort($constants);
 
-        return [
-          'variables' => (object)$vars,
-          'functions' => $funcs,
-          'classes'   => get_declared_classes(),
-          'constants' => (object)$constants,
-          'test'      => [
-            'class' => $this->_getTestClass(),
-            'func'  => $this->_getTestFunc(),
-            'var'   => $this->_getTestVar(),
-            'const' => $this->_getTestConst(),
-            'help'=> [
-              'class'=> '?&--class=your_class',
-              'func'=> '?&--func=your_function',
-              'var'=> '?&--var=your_global_variable',
-              'const'=> '?&--const=your_const',
-            ],
-          ],
+        $testClass = $this->_getTestClass();
+        $testFunc = $this->_getTestFunc();
+        $testVar = $this->_getTestVar();
+        $testConst = $this->_getTestConst();
+
+        $result = []; 
+        if (!$testClass && !$testFunc && !$testVar && !$testConst) {
+          $result['variables'] = (object)$vars;
+          $result['functions'] = $funcs;
+          $result['classes'] = get_declared_classes();
+          $result['constants'] = (object)$constants;
+          $result['test'] = []; //for put test in last order
+        } else {
+          $result['test'] = []; //for put test in last order
+          if ($testClass) {
+            $result['test']['class'] = $testClass;
+          }
+          if ($testFunc) {
+            $result['test']['func'] = $testFunc;
+          }
+          if ($testVar) {
+            $result['test']['var'] = $testVar;
+          }
+          if ($testConst) {
+            $result['test']['const'] = $testConst;
+          }
+        }
+        $result['test']['help'] = [
+          'class'=> '?&--class=your_class',
+          'func'=> '?&--func=your_function',
+          'var'=> '?&--var=your_global_variable',
+          'const'=> '?&--const=your_const',
         ];
+
+        return $result;
     }
 
     private function _getTestClass()
     {
-        $tClass = \PMVC\get($_REQUEST, '--class');
+        $tClass = \PMVC\get($this->request, '--class');
         $tClassInfo = null;
         if ($tClass) {
             $annot = \PMVC\plug('annotation');
@@ -65,7 +83,7 @@ class GlobalInfo
 
     private function _getTestFunc()
     {
-        $tFunc = \PMVC\get($_REQUEST, '--func');
+        $tFunc = \PMVC\get($this->request, '--func');
         $tFuncInfo = null;
         if ($tFunc) {
             $annot = \PMVC\plug('annotation');
@@ -85,7 +103,7 @@ class GlobalInfo
 
     private function _getTestVar()
     {
-        $tVar = \PMVC\get($_REQUEST, '--var');
+        $tVar = \PMVC\get($this->request, '--var');
         $tVarInfo = null;
         if ($tVar) {
             $tVarInfo = [
@@ -98,7 +116,7 @@ class GlobalInfo
 
     private function _getTestConst()
     {
-        $tConst = \PMVC\get($_REQUEST, '--const');
+        $tConst = \PMVC\get($this->request, '--const');
         $tConstInfo = null;
         if ($tConst) {
             $tConstInfo = [
