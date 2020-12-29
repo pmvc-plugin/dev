@@ -82,6 +82,10 @@ class Help
         return $a[0][0];
     }
 
+    /**
+     * @see dev::onResetDebugLevel
+     * @see https://github.com/pmvc-plugin/dev/blob/master/dev.php#L46
+     */
     public function store(callable $callback, $type)
     {
         $annot = \PMVC\plug('annotation');

@@ -43,6 +43,24 @@ class OnFinish
 
         \PMVC\dev(
             /**
+            * @help Show my real ip. 
+            */
+            function () {
+                return $this->caller->getAppList();
+            }, 'app-list'
+        );
+
+        \PMVC\dev(
+            /**
+            * @help Show my real ip. 
+            */
+            function () {
+                return $this->caller->getActionList();
+            }, 'action-list'
+        );
+
+        \PMVC\dev(
+            /**
             * @help Get all configs ?&--option=dump-one-option
             */
             function () {
@@ -63,8 +81,7 @@ class OnFinish
             * @help Get plugin list
             */
             function () {
-                $objs = \PMVC\getOption(\PMVC\PLUGIN_INSTANCE);
-                return $objs->keyset();
+                return \PMVC\plugInStore();
             }, 'plugins'
         );
 
