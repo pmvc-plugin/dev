@@ -27,7 +27,7 @@ class Help
             */
             function () {
                 return $this->caller->phpinfo();
-            }, 'phpinfo()'
+            }, 'phpinfo'
         );
 
         \PMVC\dev(
