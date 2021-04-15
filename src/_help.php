@@ -35,7 +35,15 @@ class Help
             * @help Get help definition. 
             */
             function () {
-                return \PMVC\get($this->_help);
+                $arr = [];
+                foreach ($this->_help as $type => $a1) {
+                    $a1Data = [];
+                    foreach ($a1 as $a2) {
+                        $a1Data[$a2] = $this->_hash[$a2];
+                    }
+                    $arr[$type] = $a1Data;
+                }
+                return $arr;
             }, 'help-where'
         );
 
@@ -72,14 +80,19 @@ class Help
         $pDebug->httpResponseCode();
         $pDebug->getOutput()
             ->dump(
-                array_map([$this, 'docOnly'], \PMVC\get($this->_help)),
+                array_map([$this, 'descOnly'], \PMVC\get($this->_help)),
                 'Dev Parameters Help'
             );
     }
 
-    public function docOnly($a)
+    public function descOnly($arrHash)
     {
-        return $a[0][0];
+        foreach ($arrHash as $a) {
+            $data = \PMVC\get($this->_hash, $a);
+            if (!empty($data[0])) {
+                return $data[0];
+            }
+        }
     }
 
     /**
@@ -94,15 +107,15 @@ class Help
         $line = $doc->getStartLine();
         $hash = $file.$line;
         if (!isset($this->_hash[$hash])) {
-            $this->_hash[$hash] = true;
-            $arrType =& \PMVC\get($this->_help, $type, []);
-            $arrType[] = [
+            $this->_hash[$hash] = [
                 $doc['help'],
                 'file'=>$file,
                 'startLine'=>$line
             ];
-            $this->_help[$type] =& $arrType;
         }
+        $arrType = \PMVC\get($this->_help, $type, []);
+        $arrType[] = $hash;
+        $this->_help[$type] = $arrType;
         $this->caller->generalDump($callback, $type);
     }
 }

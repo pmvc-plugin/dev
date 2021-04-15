@@ -2,9 +2,9 @@
 
 namespace PMVC\PlugIn\dev;
 
-use PHPUnit_Framework_TestCase;
+use PMVC\TestCase;
 
-class DevTest extends PHPUnit_Framework_TestCase
+class DevTest extends TestCase
 {
     private $_plug = 'dev';
     function testPlugin()
@@ -13,7 +13,7 @@ class DevTest extends PHPUnit_Framework_TestCase
         print_r(\PMVC\plug($this->_plug));
         $output = ob_get_contents();
         ob_end_clean();
-        $this->assertContains($this->_plug,$output);
+        $this->haveString($this->_plug,$output);
     }
 
     function testIsDevForUnPlug()

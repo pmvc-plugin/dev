@@ -1,9 +1,9 @@
 <?php
 namespace PMVC\PlugIn\dev;
 
-use PHPUnit_Framework_TestCase;
+use PMVC\TestCase;
 
-class GlobalTest extends PHPUnit_Framework_TestCase
+class GlobalTest extends TestCase
 {
   private $_plug = 'dev';
   public function testGlobal()
