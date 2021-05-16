@@ -16,6 +16,10 @@ class Input
             'action'=> $c->getAppAction(),
             'app'=> $c->getApp(),
             'app-real' => $c[_REAL_APP],
+            'template' => [
+              'dir' => $c[_TEMPLATE_DIR],
+              'engine' => $c[_VIEW_ENGINE],
+            ],
             'folders' => [
               'apps' => $c[_RUN_APPS],
               'site' => $c->getAppsParent(),
