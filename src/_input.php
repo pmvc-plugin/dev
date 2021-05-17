@@ -29,7 +29,7 @@ class Input
             'uri' => $uri,
             'router' => $c[_ROUTER],
             'folders' => [
-              'apps' => $c[_RUN_APPS],
+              'apps' => $c->getAppsFolder(),
               'site' => $c->getAppsParent(),
               'search' => [
                 'app'=> \PMVC\folders(_RUN_APP),
