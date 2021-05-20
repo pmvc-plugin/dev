@@ -7,6 +7,12 @@ use PMVC\TestCase;
 class DevTest extends TestCase
 {
     private $_plug = 'dev';
+
+    public function pmvc_setup()
+    {
+        \PMVC\unplug('debug');
+    }
+
     function testPlugin()
     {
         ob_start();
