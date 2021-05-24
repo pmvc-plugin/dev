@@ -68,8 +68,9 @@ class OnFinish
                 $one = \PMVC\get($request, '--option');
                 $arr = \PMVC\getOption(); 
                 $arr['PW'] = '*secret*';
+                unset($arr[\PMVC\THIS]);
                 if (empty($one)) {
-                  return $arr;
+                  return array_map(function($i){return \PMVC\get($i);}, $arr);
                 } else {
                   return [$one => \PMVC\get($arr, $one)];
                 }
