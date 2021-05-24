@@ -67,7 +67,7 @@ class OnFinish
                 $request = $this->caller->request();
                 $one = \PMVC\get($request, '--option');
                 $arr = \PMVC\getOption(); 
-                unset($arr['PW']);
+                $arr['PW'] = '*secret*';
                 if (empty($one)) {
                   return $arr;
                 } else {
