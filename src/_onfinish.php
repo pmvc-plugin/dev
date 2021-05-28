@@ -114,6 +114,35 @@ class OnFinish
             }, 'buckets'
         );
 
+        \PMVC\dev(
+            /**
+            * @help Get Debug plugin information 
+            */
+            function () {
+                $pDebug = \PMVC\callPlugin('debug');
+                $pError = \PMVC\callPlugin('error');
+                $pDump = empty($pDebug) ? null : $pDebug->getOutput();
+                return [
+                  'plugin' => [
+                    'debug' => \PMVC\get($pDebug),
+                    'debug-dump' => \PMVC\get($pDump),
+                    'error' => \PMVC\get($pError)
+                  ],
+                  'levels' => empty($pDebug) ? null : $pDebug->getLevels() 
+                ];
+            }, 'debug-info'
+        );
+
+        \PMVC\dev(
+            /**
+            * @help Get global defined.
+            */
+            function () {
+                return $this->caller->global();
+            },
+            'global'
+        );
+
         if ($this->caller->isDev('help')) {
             $this->
                 caller

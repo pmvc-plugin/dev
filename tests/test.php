@@ -65,5 +65,17 @@ class DevTest extends TestCase
         ];
         $this->assertEquals($expected, $actual);
     }
+
+    function testGetHelpDesc()
+    {
+        /**
+         * @help how to use [foo]
+         */
+        $func = function() { };
+        $oHelp = \PMVC\plug($this->_plug)->help();
+        $hash = $oHelp->store($func, 'foo', ['foo'=>'bar']);
+        $doc = $oHelp->descOnly([$hash]);
+        $this->assertEquals('how to use bar', $doc);
+    }
 }
 

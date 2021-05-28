@@ -2,17 +2,12 @@
 
 namespace PMVC\PlugIn\dev;
 
-${_INIT_CONFIG
-}[_CLASS] = __NAMESPACE__.'\Help';
+${_INIT_CONFIG}[_CLASS] = __NAMESPACE__ . '\Help';
 
 class Help
 {
-    private $_help;
-    private $_hash;
-    public function __construct($caller)
-    {
-        $this->_help = [];
-    }
+    private $_help = [];
+    private $_hash = [];
 
     public function __invoke()
     {
@@ -23,17 +18,18 @@ class Help
     {
         \PMVC\dev(
             /**
-            * @help Dump phpinfo
-            */
+             * @help Dump phpinfo
+             */
             function () {
                 return $this->caller->phpinfo();
-            }, 'phpinfo'
+            },
+            'phpinfo'
         );
 
         \PMVC\dev(
             /**
-            * @help Get help definition. 
-            */
+             * @help Get help definition.
+             */
             function () {
                 $arr = [];
                 foreach ($this->_help as $type => $a1) {
@@ -44,41 +40,14 @@ class Help
                     $arr[$type] = $a1Data;
                 }
                 return $arr;
-            }, 'help-where'
-        );
-
-        \PMVC\dev(
-            /**
-            * @help Get Debug plugin information 
-            */
-            function () {
-                $pDebug = \PMVC\callPlugin('debug');
-                $pError = \PMVC\callPlugin('error');
-                $pDump = empty($pDebug) ? null : $pDebug->getOutput();
-                return [
-                  'plugin' => [
-                    'debug' => \PMVC\get($pDebug),
-                    'debug-dump' => \PMVC\get($pDump),
-                    'error' => \PMVC\get($pError)
-                  ],
-                  'levels' => empty($pDebug) ? null : $pDebug->getLevels() 
-                ];
-            }, 'debug-info'
-        );
-
-        \PMVC\dev(
-            /**
-            * @help Get global defined.
-            */
-            function () {
-                return $this->caller->global();
             },
-            'global'
+            'help-where'
         );
 
         $pDebug = \PMVC\plug('debug');
         $pDebug->httpResponseCode();
-        $pDebug->getOutput()
+        $pDebug
+            ->getOutput()
             ->dump(
                 array_map([$this, 'descOnly'], \PMVC\get($this->_help)),
                 'Dev Parameters Help'
@@ -99,23 +68,31 @@ class Help
      * @see dev::onResetDebugLevel
      * @see https://github.com/pmvc-plugin/dev/blob/master/dev.php#L46
      */
-    public function store(callable $callback, $type)
+    public function store(callable $callback, $type, $helpArgs = null)
     {
         $annot = \PMVC\plug('annotation');
         $doc = $annot->get($callback);
         $file = $doc->getFile();
         $line = $doc->getStartLine();
-        $hash = $file.$line;
+        $hash = $file . $line;
+        $helpDoc =  $helpArgs ? \PMVC\tpl(
+            $doc['help'],
+            array_keys($helpArgs),
+            function($args) use ($helpArgs) {
+                return $helpArgs[$args['replaceKey']];
+            }
+        ) : $doc['help'];
         if (!isset($this->_hash[$hash])) {
             $this->_hash[$hash] = [
-                $doc['help'],
-                'file'=>$file,
-                'startLine'=>$line
+                $helpDoc,
+                'file' => $file,
+                'startLine' => $line,
             ];
         }
         $arrType = \PMVC\get($this->_help, $type, []);
         $arrType[] = $hash;
         $this->_help[$type] = $arrType;
         $this->caller->generalDump($callback, $type);
+        return $hash;
     }
 }
