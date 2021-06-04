@@ -44,14 +44,13 @@ class Help
             'help-where'
         );
 
-        $pDebug = \PMVC\plug('debug');
-        $pDebug->httpResponseCode();
-        $pDebug
-            ->getOutput()
-            ->dump(
-                array_map([$this, 'descOnly'], \PMVC\get($this->_help)),
-                'Dev Parameters Help'
-            );
+        $this->caller->generalDump(function(){
+           return array_map([$this, 'descOnly'], \PMVC\get($this->_help)); 
+        }, 'help');
+
+        $this->caller->generalDump(function(){
+           return $this->caller->getUnUsed();
+        }, 'unused');
     }
 
     public function descOnly($arrHash)
@@ -92,7 +91,7 @@ class Help
         $arrType = \PMVC\get($this->_help, $type, []);
         $arrType[] = $hash;
         $this->_help[$type] = $arrType;
-        $this->caller->generalDump($callback, $type);
+        $this->caller->checkAndDump($callback, $type);
         return $hash;
     }
 }

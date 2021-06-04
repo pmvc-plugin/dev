@@ -13,9 +13,11 @@ class dev extends PlugIn
 {
     private $_levels;
     private $_output;
+    private $_dumped = [];
+
     public function init()
     {
-        $this['dump'] = [$this, 'generalDump'];
+        $this['dump'] = [$this, 'checkAndDump'];
         // 1. should have alert here, if dispatcher not plug
         // 2. need locate after $this['dump'] xxx else will trigger dump method not found error.
         \PMVC\plug('dispatcher')->attach($this, 'resetDebugLevel');
@@ -47,11 +49,17 @@ class dev extends PlugIn
         }
     }
 
-    public function generalDump(callable $callback, $type)
+    public function checkAndDump(callable $callback, $type)
     {
         if (!$this->isDev($type)) {
             return;
         }
+        $this->generalDump($callback, $type);
+    }
+
+    public function generalDump(callable $callback, $type)
+    {
+        $this->_dumped[$type] = true;
         $s = call_user_func($callback);
         if (!is_null($s)) {
             $this->_getOutput()->dump($s, $type);
@@ -78,6 +86,16 @@ class dev extends PlugIn
             return false;
         }
         return isset($this->_levels[$type]);
+    }
+
+    public function getUnused()
+    {
+        $dumped = array_keys($this->_dumped);
+        $dumped[] = 'dump';
+        $unused = array_diff(array_keys($this->_levels), $dumped);
+        if (count($unused)) {
+            return array_values($unused);
+        }
     }
 
     public function __destruct()

@@ -14,7 +14,7 @@ class PHPUnit
 
     public function resetPlugIn($level)
     {
-        $pluginArr = ['dev', 'error', 'debug'];
+        $pluginArr = ['dev', 'error', 'debug', 'debug_store'];
         foreach ($pluginArr as $p) {
             \PMVC\unplug($p);
         }
@@ -30,6 +30,7 @@ class PHPUnit
 
     public function toArray()
     {
+        $this->caller->onFinish();
         return \PMVC\plug('debug_store')
           ->toArray();
     }
