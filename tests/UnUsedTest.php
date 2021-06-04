@@ -25,7 +25,7 @@ class UnUsedTest extends TestCase
         }
         $expected = [
           0 => 'unused',
-          1 => [ 'bar' ]
+          1 => [ 'unused' => ['bar'] ]
         ];
         $this->assertEquals($expected, $unUsed);
     }

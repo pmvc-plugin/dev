@@ -44,6 +44,9 @@ class dev extends PlugIn
         );
         // Need put after $this->_levels
         if ($this->isDev('help')) {
+            /**
+             * @see https://github.com/pmvc-plugin/file_list/blob/master/src/_dump.php#L43-L47
+             */
             $this->_levels['dump'] = true;
             $this['dump'] = [$this->help(), 'store'];
         }

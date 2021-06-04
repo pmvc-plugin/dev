@@ -44,12 +44,15 @@ class Help
             'help-where'
         );
 
-        $this->caller->generalDump(function(){
-           return array_map([$this, 'descOnly'], \PMVC\get($this->_help)); 
+        $this->caller->generalDump(function () {
+            return array_map([$this, 'descOnly'], \PMVC\get($this->_help));
         }, 'help');
 
-        $this->caller->generalDump(function(){
-           return $this->caller->getUnUsed();
+        $this->caller->generalDump(function () {
+            $unused = $this->caller->getUnUsed();
+            if ($unused) {
+                return compact('unused');
+            }
         }, 'unused');
     }
 
