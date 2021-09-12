@@ -10,6 +10,6 @@ class Request
     public function __invoke()
     {
       $creq = \PMVC\callPlugin('controller', 'getRequest');
-      return $creq ? $creq : $_REQUEST;
+      return count($creq) ? $creq : $_REQUEST;
     }
 }
