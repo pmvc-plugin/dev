@@ -53,7 +53,7 @@ class Help
             if ($unused) {
                 return compact('unused');
             }
-        }, 'unused');
+        }, 'unused-help');
     }
 
     public function descOnly($arrHash)

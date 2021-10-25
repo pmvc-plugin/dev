@@ -18,13 +18,13 @@ class UnUsedTest extends TestCase
 
         $unUsed = null;
         foreach($results['debugs'] as $res) {
-            if ($res[0] === 'unused') {
+            if ($res[0] === 'unused-help') {
                 $unUsed = $res;
                 break;
             }
         }
         $expected = [
-          0 => 'unused',
+          0 => 'unused-help',
           1 => [ 'unused' => ['bar'] ]
         ];
         $this->assertEquals($expected, $unUsed);

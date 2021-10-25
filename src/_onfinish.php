@@ -43,19 +43,19 @@ class OnFinish
 
         \PMVC\dev(
             /**
-            * @help Show my real ip. 
+            * @help Show app list. 
             */
             function () {
-                return $this->caller->getAppList();
+                return $this->caller->get_app_list();
             }, 'app-list'
         );
 
         \PMVC\dev(
             /**
-            * @help Show my real ip. 
+            * @help Show action list. 
             */
             function () {
-                return $this->caller->getActionList();
+                return $this->caller->get_action_list();
             }, 'action-list'
         );
 
