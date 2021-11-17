@@ -14,18 +14,19 @@ class UnUsedTest extends TestCase
             return 'bar';
         }, 'foo');
 
-        $results = $oPHPUnit->toArray();
+        $debugRes = $oPHPUnit->toArray();
+        $results = \PMVC\get($debugRes, 'debugs', []);
 
         $unUsed = null;
-        foreach($results['debugs'] as $res) {
+        foreach ($results as $res) {
             if ($res[0] === 'unused-help') {
                 $unUsed = $res;
                 break;
             }
         }
         $expected = [
-          0 => 'unused-help',
-          1 => [ 'unused' => ['bar'] ]
+            0 => 'unused-help',
+            1 => ['unused' => ['bar']],
         ];
         $this->assertEquals($expected, $unUsed);
     }

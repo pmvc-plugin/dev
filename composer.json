@@ -13,10 +13,11 @@
     "require": {
         "pmvc/pmvc": "*",
         "pmvc-plugin/utf8": "*",
-        "pmvc-plugin/debug": "*",
         "pmvc-plugin/dispatcher": "*",
         "pmvc-plugin/error": "*",
+        "pmvc-plugin/debug": "*",
         "pmvc-plugin/debug_store": "*",
+        "pmvc-plugin/debug_cli": "*",
         "pmvc-plugin/annotation": "*"
     },
     "require-dev": {
