@@ -4,22 +4,17 @@ namespace PMVC\PlugIn\dev;
 
 use PMVC\PlugIn\debug\DebugDumpInterface;
 
-
-class FakeDebugOutput
-    extends \PMVC\PlugIn
-    implements DebugDumpInterface
+class FakeDebugOutput extends \PMVC\PlugIn implements DebugDumpInterface
 {
-    function escape($s)
-    { 
-    }
-    function dump($p, $type='')
+    function escape($s, $type = null)
     {
-        \PMVC\option('set', 'test', [$p,$type]);
+    }
+    function dump($p, $type = '')
+    {
+        \PMVC\option('set', 'test', [$p, $type]);
     }
 }
 
-\PMVC\plug(
-    'debug_fake', [
-    _CLASS=>__NAMESPACE__.'\FakeDebugOutput'
-    ]
-);
+\PMVC\plug('debug_fake', [
+    _CLASS => __NAMESPACE__ . '\FakeDebugOutput',
+]);
