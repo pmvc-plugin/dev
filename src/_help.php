@@ -45,7 +45,16 @@ class Help
         );
 
         $this->caller->generalDump(function () {
-            return array_map([$this, 'descOnly'], \PMVC\get($this->_help));
+            $onlyDesc = array_map([$this, 'descOnly'], \PMVC\get($this->_help));
+            $purgeArr = [];
+            foreach ($onlyDesc as $k => $v) {
+                if (0 === strpos($k, 'purge')) {
+                    $purgeArr[$k] = $v;
+                    unset($onlyDesc[$k]);
+                }
+            }
+            $onlyDesc['purge'] = $purgeArr;
+            return $onlyDesc;
         }, 'help');
 
         $this->caller->generalDump(function () {
