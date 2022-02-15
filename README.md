@@ -7,6 +7,9 @@
 dev
 ===============
 
+## How to set debug level
+* https://github.com/pmvc-plugin/debug#how-to-trigger-debug
+
 ## Best plug order
    * put dev before debug, you could get most of plug trace
 ```
