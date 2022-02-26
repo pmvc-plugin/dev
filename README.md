@@ -36,8 +36,18 @@ dev
 * https://github.com/pmvc-plugin/dev/blob/master/tests/DevWithPhpUnitTest.php
 
 ### debug with cli
-```
+```php
 \PMVC\plug('dev')->debug_with_cli();
+```
+
+* display debug only (without trace)
+```php
+\PMVC\plug('dev')->debug_with_cli('debug');
+```
+
+* accept multiple dump level
+```php
+\PMVC\plug('dev')->debug_with_cli('debug, trace, help');
 ```
 
 
