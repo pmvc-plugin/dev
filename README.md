@@ -32,6 +32,15 @@ dev
         \PMVC\plug('dev')->onResetDebugLevel();
 ```
 
+### phpunit
+* https://github.com/pmvc-plugin/dev/blob/master/tests/DevWithPhpUnitTest.php
+
+### debug with cli
+```
+\PMVC\plug('dev')->debug_with_cli();
+```
+
+
 ## Why help also trigger dump
 * https://github.com/pmvc-plugin/dev/blob/master/dev.php#L45
 
