@@ -2,8 +2,7 @@
 
 namespace PMVC\PlugIn\dev;
 
-${_INIT_CONFIG
-}[_CLASS] = __NAMESPACE__.'\OnFinish';
+${_INIT_CONFIG}[_CLASS] = __NAMESPACE__ . '\OnFinish';
 
 class OnFinish
 {
@@ -16,127 +15,139 @@ class OnFinish
     {
         \PMVC\dev(
             /**
-            * @help Get http information
-            */
+             * @help Get http information
+             */
             function () {
                 return $this->caller->http();
-            }, 'http'
+            },
+            'http'
         );
 
         \PMVC\dev(
             /**
-            * @help Get PMVC input information 
-            */
+             * @help Get PMVC input information
+             */
             function () {
                 return $this->caller->input();
-            }, 'input'
+            },
+            'input'
         );
 
         \PMVC\dev(
             /**
-            * @help Show my real ip. 
-            */
+             * @help Show my real ip.
+             */
             function () {
                 return $this->caller->myip();
-            }, 'myip'
+            },
+            'myip'
         );
 
         \PMVC\dev(
             /**
-            * @help Show app list. 
-            */
+             * @help Show app list.
+             */
             function () {
                 return $this->caller->get_app_list();
-            }, 'app-list'
+            },
+            'app-list'
         );
 
         \PMVC\dev(
             /**
-            * @help Show action list. 
-            */
+             * @help Show action list.
+             */
             function () {
                 return $this->caller->get_action_list();
-            }, 'action-list'
+            },
+            'action-list'
         );
 
         \PMVC\dev(
             /**
-            * @help Get all configs ?&--option=dump-one-option
-            */
+             * @help Get all configs ?&--option=dump-one-option
+             */
             function () {
                 $request = $this->caller->request();
                 $one = \PMVC\get($request, '--option');
-                $arr = \PMVC\getOption(); 
+                $arr = \PMVC\getOption();
                 $arr['PW'] = '*secret*';
                 unset($arr[\PMVC\THIS]);
                 if (empty($one)) {
-                  return array_map(function($i){return \PMVC\get($i);}, $arr);
+                    return array_map(function ($i) {
+                        return \PMVC\get($i);
+                    }, $arr);
                 } else {
-                  return [$one => \PMVC\get($arr, $one)];
+                    return [$one => \PMVC\get($arr, $one)];
                 }
-            }, 'options'
+            },
+            'options'
         );
 
         \PMVC\dev(
             /**
-            * @help Get plugin list
-            */
+             * @help Get plugin list
+             */
             function () {
-                return \PMVC\plugInStore();
-            }, 'plugins'
+                return \PMVC\InternalUtility::getPlugInNameList();
+            },
+            'plugins'
         );
 
         \PMVC\dev(
             /**
-            * @help Get session data 
-            */
+             * @help Get session data
+             */
             function () {
                 return $this->caller->session();
-            }, 'session'
+            },
+            'session'
         );
 
         \PMVC\dev(
             /**
-            * @help Get server information 
-            */
+             * @help Get server information
+             */
             function () {
                 return $this->caller->server();
-            }, 'server'
+            },
+            'server'
         );
 
         \PMVC\dev(
             /**
-            * @help Get bucket information
-            */
+             * @help Get bucket information
+             */
             function () {
-                return \PMVC\plug('getenv')->
-                get('HTTP_X_BUCKET_TESTS');
-            }, 'buckets'
+                return \PMVC\plug('getenv')->get('HTTP_X_BUCKET_TESTS');
+            },
+            'buckets'
         );
 
         \PMVC\dev(
             /**
-            * @help Get Debug plugin information 
-            */
+             * @help Get Debug plugin information
+             */
             function () {
                 $pDebug = \PMVC\callPlugin('debug');
                 $pError = \PMVC\callPlugin('error');
                 $pDump = empty($pDebug) ? null : $pDebug->getOutput();
                 return [
-                  'plugin' => [
-                    'debug' => \PMVC\get($pDebug),
-                    'debug-dump' => \PMVC\get($pDump),
-                    'error' => \PMVC\get($pError)
-                  ],
-                  'levels' => empty($pDebug) ? null : $pDebug->getLevels() 
+                    'plugin' => [
+                        'debug' => \PMVC\get($pDebug),
+                        'debug-dump' => \PMVC\get($pDump),
+                        'error' => \PMVC\get($pError),
+                    ],
+                    'levels' => empty($pDebug) ? null : $pDebug->getLevels(),
                 ];
-            }, 'debug-info'
+            },
+            'debug-info'
         );
 
         \PMVC\dev(
             /**
-            * @help Get global defined.
-            */
+             * @help Get global defined.
+             */
             function () {
                 return $this->caller->global();
             },
@@ -144,10 +155,7 @@ class OnFinish
         );
 
         if ($this->caller->isDev('help')) {
-            $this->
-                caller
-                ->help()
-                ->finish();
+            $this->caller->help()->finish();
         }
     }
 }
