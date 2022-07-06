@@ -85,7 +85,7 @@ class Help
         $doc = $annot->get($callback);
         $file = $doc->getFile();
         $line = $doc->getStartLine();
-        $hash = $file . $line . $type;
+        $hash = $file . '-' . $line;
         if (!isset($this->_hash[$hash])) {
             $helpDoc = $helpArgs
                 ? \PMVC\tpl($doc['help'], array_keys($helpArgs), function (
