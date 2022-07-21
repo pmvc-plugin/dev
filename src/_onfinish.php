@@ -129,15 +129,14 @@ class OnFinish
              * @help Get Debug plugin information
              */
             function () {
-                $caller = $this->caller;
                 $pDebug = \PMVC\callPlugin('debug');
                 $pError = \PMVC\callPlugin('error');
                 $pDump = empty($pDebug) ? null : $pDebug->getOutput();
                 return [
                     'plugin' => [
-                        'debug' => $caller->cloneArr($pDebug),
-                        'debug-dump' => $caller->cloneArr($pDump),
-                        'error' => $caller->cloneArr($pError),
+                        'debug' => \PMVC\get($pDebug),
+                        'debug-dump' => \PMVC\get($pDump),
+                        'error' => \PMVC\get($pError),
                     ],
                     'levels' => empty($pDebug) ? null : $pDebug->getLevels(),
                 ];
