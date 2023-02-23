@@ -1,14 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" backupGlobals="false" colors="true" bootstrap="tests/include.php" processIsolation="false" stopOnFailure="false" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd" cacheDirectory=".phpunit.cache" backupStaticProperties="false">
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpunit
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd"
+  backupGlobals="false"
+  colors="true"
+  bootstrap="tests/include.php"
+  processIsolation="false"
+  stopOnFailure="false"
+  cacheDirectory=".phpunit.cache"
+  backupStaticProperties="false"
+>
   <testsuites>
     <testsuite name="Application Test Suite">
       <directory>./tests/</directory>
     </testsuite>
   </testsuites>
   <php>
-    <ini name="error_reporting" value="E_ALL"/>
-    <ini name="display_errors" value="true"/>
-    <ini name="display_startup_errors" value="true"/>
-    <env name="APP_ENV" value="testing"/>
+    <ini name="error_reporting" value="E_ALL" />
+    <ini name="display_errors" value="true" />
+    <ini name="display_startup_errors" value="true" />
+    <env name="APP_ENV" value="testing" />
   </php>
 </phpunit>
