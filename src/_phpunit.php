@@ -6,6 +6,8 @@ ${_INIT_CONFIG}[_CLASS] = __NAMESPACE__ . '\PHPUnit';
 
 class PHPUnit
 {
+    public $caller;
+
     public function __invoke($level)
     {
         $this->resetPlugIn($level);

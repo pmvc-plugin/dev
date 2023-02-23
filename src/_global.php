@@ -7,6 +7,7 @@ ${_INIT_CONFIG
 
 class GlobalInfo
 {
+    public $caller;
     public function __invoke()
     {
         $this->request = $this->caller->request();

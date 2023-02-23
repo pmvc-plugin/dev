@@ -6,6 +6,7 @@ ${_INIT_CONFIG}[_CLASS] = __NAMESPACE__ . '\Help';
 
 class Help
 {
+    public $caller;
     private $_help = [];
     private $_hash = [];
 
