@@ -1,6 +1,6 @@
 [![Latest Stable Version](https://poser.pugx.org/pmvc-plugin/dev/v/stable)](https://packagist.org/packages/pmvc-plugin/dev) 
 [![Latest Unstable Version](https://poser.pugx.org/pmvc-plugin/dev/v/unstable)](https://packagist.org/packages/pmvc-plugin/dev) 
-[![CircleCI](https://circleci.com/gh/pmvc-plugin/dev/tree/master.svg?style=svg)](https://circleci.com/gh/pmvc-plugin/dev/tree/master)
+[![CircleCI](https://circleci.com/gh/pmvc-plugin/dev/tree/main.svg?style=svg)](https://circleci.com/gh/pmvc-plugin/dev/tree/main)
 [![License](https://poser.pugx.org/pmvc-plugin/dev/license)](https://packagist.org/packages/pmvc-plugin/dev)
 [![Total Downloads](https://poser.pugx.org/pmvc-plugin/dev/downloads)](https://packagist.org/packages/pmvc-plugin/dev) 
 
@@ -33,7 +33,7 @@ dev
 ```
 
 ### phpunit
-* https://github.com/pmvc-plugin/dev/blob/master/tests/DevWithPhpUnitTest.php
+* https://github.com/pmvc-plugin/dev/blob/main/tests/DevWithPhpUnitTest.php
 
 ### debug with cli
 ```php
@@ -52,9 +52,10 @@ dev
 
 
 ## Why help also trigger dump
-* https://github.com/pmvc-plugin/dev/blob/master/dev.php#L45
+* https://github.com/pmvc-plugin/dev/blob/main/dev.php#L45
 
 ## Install with Composer
+<details><summary>CLICK TO SEE</summary><p>
 ### 1. Download composer
    * mkdir test_folder
    * curl -sS https://getcomposer.org/installer | php
@@ -74,3 +75,7 @@ dev
 #### 2.2 Or use composer command-line
    * php composer.phar require pmvc-plugin/dev
 
+   or
+   
+   * composer require pmvc-plugin/dev
+</p></details>
